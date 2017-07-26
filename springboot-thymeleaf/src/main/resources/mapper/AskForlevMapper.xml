@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mello.dao.AskForlevDao">
+    <resultMap id="baseResultMap" type="com.mello.domain.AskForlev">
+        <result column="id" property="id"/>
+        <result column="employee_id" property="eId"/>
+        <result column="askforlev_day" property="day"/>
+        <result column="askforlev_reason" property="reason"/>
+        <result column="askforlev_date" property="date"/>
+    </resultMap>
+    <parameterMap id="AskForlev" type="com.mello.domain.AskForlev"/>
+    <sql id="baseColumnList">
+         id,employee_Id,askforlev_day,askforlev_reason,askforlev_date
+    </sql>
+    <select id="findByAll" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM askforlev
+        <where>
+            1=1
+            <if test="id!=null and id!=''">
+                AND id=#{id}
+            </if>
+            <if test="eId!=null and eId!=''">
+                AND employee_Id LIKE CONCAT(CONCAT('%',#{eId},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM admin
+        WHERE id = #{id}
+    </select>
+
+    <insert id="saveAskForlev" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO askforlev (employee_id,askforlev_day,askforlev_reason,askforlev_date)
+        VALUES (#{eId},#{day}, #{reason},#{date})
+    </insert>
+
+    <update id="updateAskForlev">
+        UPDATE askforlev
+        SET
+        <if test="eId != null">
+            employee_id=${eId},
+        </if>
+        <if test="day != null">
+            askforlev_day=#{day},
+        </if>
+        <if test="reason != null">
+            askforlev_reason=#{reason},
+        </if>
+        <if test="date!=null">
+            askforlev_date=#{date}
+        </if>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByIds">
+        DELETE FROM askforlev
+        WHERE id IN
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+        </foreach>
+    </delete>
+</mapper>

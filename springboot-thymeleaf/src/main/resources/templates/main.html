@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" th:href="@{/assets/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css"
+          th:href="@{/assets/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/jquery-ui-1.10.3.full.min.css"
+          th:href="@{/assets/css/jquery-ui-1.10.3.full.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/datepicker.css" th:href="@{/assets/css/datepicker.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/googleFamily.css" th:href="@{/assets/css/googleFamily.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/ui.jqgrid.css" th:href="@{/assets/css/ui.jqgrid.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/chosen.css" th:href="@{/assets/css/chosen.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/custom.css" th:href="@{/assets/css/custom.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/ace.min.css" th:href="@{/assets/css/ace.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/ace-rtl.min.css" th:href="@{/assets/css/ace-rtl.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/ace-skins.min.css" th:href="@{/assets/css/ace-skins.min.css}"/>
+
+    <!--[if !IE]> -->
+    <script src="../static/assets/js/jquery-2.0.3.min.js" th:src="@{/assets/js/jquery-2.0.3.min.js}"></script>
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script src="../static/assets/js/jquery-1.10.2.min.js" th:src="@{/assets/js/jquery-1.10.2.min.js}"></script>
+    <![endif]-->
+    <title>人力资源管理后台</title>
+    <script type="text/javascript">
+        $(function () {
+            $('#profile-feed-1').slimScroll({
+                height: '250px',
+                alwaysVisible: true
+            });
+
+            //单击快捷方式
+            $("#fastMenuDiv").on("click", "a.menu", function () {
+                var url = $(this).attr("id");
+                var id = $(this).attr("value");
+                /*<![CDATA[*/
+                if (id && url) {
+                    parent.addTabs({id: id, title: $(this).find(".spName").text(), url: url, close: true});
+                }
+                /*]]>*/
+                //parent.changeUrl(url);
+                //$("#showNav",window.parent.document).html(menuName);
+            })
+        });
+    </script>
+</head>
+<body>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small">
+                <h4><i class="fa fa-user orange"></i></h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-body-inner" style="display: block;">
+                    <div class="widget-main">
+                        <div>
+                            <div class="row">
+                                <div class="col-xs-1">
+                                    <img class="editable img-responsive editable-click editable-empty" style="border:0;"
+                                         width="120" height="120" id="avatar" alt="Alex's Avatar"
+                                         th:src="@{/assets/images/yuki.jpg}"/>
+                                </div>
+                                <div class="col-xs-7">
+                                    <h3>您好，欢迎登录人力资源管理系统。</h3>
+                                    <div class="row">
+                                        <div class="col-xs-3 col-md-2">
+                                            <h4><span id="relName"></span></h4>
+                                        </div>
+                                        <div class="col-xs-4 col-md-10">
+                                            <h4></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2" style="text-align: right;">
+                                    <!--<img src="#"/>-->
+                                </div>
+                                <div class="col-xs-2">
+                                    <!--<img src="#"/>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="widget-box">
+            <div class="widget-header  widget-header-small">
+                <h4><i class="icon-star orange"></i></h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-body-inner" style="display: block;">
+                    <div class="widget-main">
+                        <div>
+                            <div id="fastMenuDiv" class="profile-users clearfix">
+                                <div class="itemdiv memberdiv">
+                                    <div class="inline position-relative">
+                                        <div class="user">
+                                            <a class="btn btn-app btn-purple menu" id="learn" value="learn"
+                                               style="font-size:14px;line-height:2.2;" th:href="@{index.html}">
+                                                <i class="icon-desktop bigger-230"></i>
+                                                <span class="spName">人力资源管理</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="itemdiv memberdiv">
+                                    <div class="inline position-relative">
+                                        <div class="user">
+                                            <a class="btn btn-app btn-yellow  btn-sm" id="addFastMenuBtn"
+                                               href="javascript:void(0);" style="font-size:14px;">
+                                                <i class="fa fa-plus fa-5x"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small">
+                <h4>
+                    <i class="icon-rss orange"></i>
+                    通知公告
+                </h4>
+                <div class="widget-toolbar action-buttons">
+                    <a href="#" data-action="reload">
+                        <i class="icon-refresh blue"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main padding-8">
+                    <div class="profile-feed" id="profile-feed-1" style="width: auto; height: 250px; overflow: hidden;">
+
+                        <div class="profile-activity clearfix">
+                            <div>
+                                <i class="pull-left thumbicon icon-key btn-info no-hover"></i>
+                                <a class="user" href="#"> 通知 </a>
+
+                                人力调动
+                                <div class="time">
+                                    <i class="icon-time bigger-110"></i>
+                                    1小时前
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-activity clearfix">
+                            <div>
+                                <i class="pull-left thumbicon icon-off btn-inverse no-hover"></i>
+                                <a class="user" href="#"> 通知 </a>
+                                工资变动
+                                <div class="time">
+                                    <i class="icon-time bigger-110"></i>
+                                    2小时前
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-activity clearfix">
+                            <div>
+                                <i class="pull-left thumbicon icon-key btn-info no-hover"></i>
+                                <a class="user" href="#"> 通知 </a>
+
+                                奖罚规则变动
+                                <div class="time">
+                                    <i class="icon-time bigger-110"></i>
+                                    2小时前
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="../static/assets/js/ace-extra.min.js" th:src="@{/assets/js/ace-extra.min.js}"></script>
+<!--[if lt IE 9]>
+
+<script src="../static/assets/js/html5shiv.js" th:src="@{/assets/js/html5shiv.js}"></script>
+<script src="../static/assets/js/respond.min.js" th:src="@{/assets/js/respond.min.js}"></script>
+<![endif]-->
+<script src="../static/assets/js/bootstrap.min.js" th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script src="../static/assets/js/jquery-ui-1.10.3.custom.min.js"
+        th:src="@{/assets/js/jquery-ui-1.10.3.custom.min.js}"></script>
+<script src="../static/assets/js/jquery.slimscroll.min.js" th:src="@{/assets/js/jquery.slimscroll.min.js}"></script>
+<script src="../static/assets/js/chosen.jquery.min.js" th:src="@{/assets/js/chosen.jquery.min.js}"></script>
+<script src="../static/assets/js/ace-elements.min.js" th:src="@{/assets/js/ace-elements.min.js}"></script>
+<script src="../static/assets/js/ace.min.js" th:src="@{/assets/js/ace.min.js}"></script>
+<script src="../static/assets/js/md5.js" th:src="@{/assets/js/md5.js}"></script>
+<script src="../static/assets/js/custom.js" th:src="@{/assets/js/custom.js}"></script>
+<script src="../static/assets/js/jquery.messager.js" th:src="@{/assets/js/jquery.messager.js}"></script>
+</body>
+</html>

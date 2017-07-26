@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mello.dao.AdminDao">
+    <resultMap id="baseResultMap" type="com.mello.domain.Admin">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+    </resultMap>
+    <parameterMap id="Admin" type="com.mello.domain.Admin"/>
+
+    <select id="findByAll" resultMap="baseResultMap">
+        SELECT
+            id,
+            username,
+            password
+        FROM admin
+        <where>
+            1=1
+            <if test="username!=null and username!=''">
+                AND username LIKE CONCAT(CONCAT('%',#{username},'%'))
+            </if>
+            <if test="password!=null and password!=''">
+                AND password LIKE CONCAT('%',%{password},'%')
+            </if>
+        </where>
+    </select>
+    <select id="find" resultMap="baseResultMap">
+        SELECT id
+        FROM admin
+        WHERE username = #{username} AND password = #{password}
+    </select>
+    <select id="findById" resultMap="baseResultMap">
+        SELECT
+            id,
+            username,
+            password
+        FROM admin
+        WHERE id = #{id}
+    </select>
+
+    <insert id="saveAdmin" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO admin (username, password)
+        VALUES (#{username}, #{password})
+    </insert>
+
+    <update id="updateAdmin">
+        UPDATE admin
+        SET
+        <if test="username != null">
+            username=#{username},
+        </if>
+        <if test="password != null">
+            password=#{password}
+        </if>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByIds">
+        DELETE FROM admin
+        WHERE id IN
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+        </foreach>
+    </delete>
+</mapper>

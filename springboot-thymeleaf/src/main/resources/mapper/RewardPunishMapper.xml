@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mello.dao.RewardPunishDao">
+    <resultMap id="baseResultMap" type="com.mello.domain.RewardPunish">
+        <result column="id" property="id"/>
+        <result column="employee_id" property="eId"/>
+        <result column="rewardpunish_content" property="content"/>
+    </resultMap>
+    <parameterMap id="RewardPunish" type="com.mello.domain.RewardPunish"/>
+    <sql id="baseColumnList">
+        id,employee_id,rewardpunish_content
+    </sql>
+    <select id="findByAll" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM rewardpunish
+        <where>
+            1=1
+            <if test="id!=null and id!=''">
+                AND id=#{id}
+            </if>
+            <if test="eId!=null and eId!=''">
+                AND employee_id LIKE CONCAT(CONCAT('%',#{eId},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM rewardpunish
+        WHERE id = #{id}
+    </select>
+
+    <insert id="saveRewardPunish" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO rewardpunish (employee_id,rewardpunish_content)
+        VALUES (#{eId}, #{content})
+    </insert>
+
+    <update id="updateRewardPunish">
+        UPDATE rewardpunish
+        SET
+        <if test="eId != null">
+            employee_id=${eId},
+        </if>
+        <if test="content != null">
+            rewardpunish_content=#{content}
+        </if>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByIds">
+        DELETE FROM rewardpunish
+        WHERE id IN
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+        </foreach>
+    </delete>
+</mapper>

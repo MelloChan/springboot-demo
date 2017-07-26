@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mello.dao.DutyDao">
+    <resultMap id="baseResultMap" type="com.mello.domain.Duty">
+        <result column="id" property="id"/>
+        <result column="employee_id" property="eId"/>
+        <result column="duty_attend" property="attend"/>
+        <result column="duty_early_leave" property="leave"/>
+        <result column="duty_late" property="late"/>
+        <result column="duty_absent" property="absent"/>
+    </resultMap>
+    <parameterMap id="Duty" type="com.mello.domain.Duty"/>
+    <sql id="baseColumnList">
+        id,employee_id,duty_attend,duty_early_leave,duty_late,duty_absent
+    </sql>
+    <select id="findByAll" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM duty
+        <where>
+            1=1
+            <if test="id!=null and id!=''">
+                AND id=#{id}
+            </if>
+            <if test="eId!=null and eId!=''">
+                AND employee_id LIKE CONCAT(CONCAT('%',#{eId},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM duty
+        WHERE id = #{id}
+    </select>
+
+    <insert id="saveDuty" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO duty (employee_id,duty_attend,duty_early_leave,duty_late,duty_absent)
+        VALUES (#{eId}, #{attend},#{leave},#{late},#{absent})
+    </insert>
+
+    <update id="updateDuty">
+        UPDATE duty
+        SET
+        <if test="eId != null">
+            employee_id=${eId},
+        </if>
+        <if test="attend != null">
+            duty_attend=#{attend},
+        </if>
+        <if test="leave!=null">
+            duty_early_leave=#{leave},
+        </if>
+        <if test="late!=null">
+            duty_late=#{late},
+        </if>
+        <if test="absent!=null">
+            duty_absent=#{absent}
+        </if>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByIds">
+        DELETE FROM duty
+        WHERE id IN
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+        </foreach>
+    </delete>
+</mapper>

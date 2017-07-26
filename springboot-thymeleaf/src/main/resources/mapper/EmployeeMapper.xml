@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mello.dao.EmployeeDao">
+    <resultMap id="baseResultMap" type="com.mello.domain.Employee">
+        <result column="id" property="id"/>
+        <result column="employee_name" property="name"/>
+        <result column="employee_sex" property="sex"/>
+        <result column="employee_idcard" property="idcard"/>
+        <result column="employee_tel" property="tel"/>
+        <result column="employee_job" property="job"/>
+    </resultMap>
+    <parameterMap id="Employee" type="com.mello.domain.Employee"/>
+    <sql id="baseColumnList">
+        id,employee_name,employee_sex,employee_idcard,employee_tel,employee_job
+    </sql>
+    <select id="findByAll" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM employee
+        <where>
+            1=1
+            <if test="id!=null and id!=''">
+                AND id = #{id}
+            </if>
+            <if test="name!=null and name!=''">
+               AND employee_name like CONCAT (CONCAT('%',#{name},'%'))
+            </if>
+        </where>
+    </select>
+    <select id="findById" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM employee
+        WHERE id=#{id}
+    </select>
+
+    <insert id="saveEmployee" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO employee(employee_name,employee_sex,employee_idcard,employee_tel,employee_job)
+        VALUES (#{name},#{sex},#{idcard},#{tel},#{job})
+    </insert>
+    <update id="updateEmployee">
+        UPDATE employee
+        SET
+        <if test="name!=null">
+            employee_name=#{name},
+        </if>
+        <if test="sex!=null">
+            employee_sex=#{sex},
+        </if>
+        <if test="idcard!=null">
+            employee_idcard=#{idcard},
+        </if>
+        <if test="tel!=null">
+            employee_tel=#{tel},
+        </if>
+        <if test="job!=null">
+            employee_job=#{job}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByIds">
+        DELETE FROM employee
+        WHERE id in
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+        </foreach>
+    </delete>
+
+</mapper>

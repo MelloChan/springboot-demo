@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mello.dao.SalaryDao">
+    <resultMap id="baseResultMap" type="com.mello.domain.Salary">
+        <result column="id" property="id"/>
+        <result column="employee_id" property="eId"/>
+        <result column="salary_salary" property="salary"/>
+        <result column="salary_bonus" property="bonus"/>
+        <result column="salary_punish" property="punish"/>
+    </resultMap>
+    <parameterMap id="Salary" type="com.mello.domain.Salary"/>
+    <sql id="baseColumnList">
+        id,employee_id,salary_salary,salary_bonus,salary_punish
+    </sql>
+    <select id="findByAll" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM salary
+        <where>
+            1=1
+            <if test="id!=null and id!=''">
+                AND id=#{id}
+            </if>
+            <if test="eId!=null and eId!=''">
+                AND employee_id LIKE CONCAT(CONCAT('%',#{eId},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM salary
+        WHERE id = #{id}
+    </select>
+
+    <insert id="saveSalary" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO salary(employee_id,salary_salary,salary_bonus,salary_punish)
+        VALUES (#{eId}, #{salary},#{bonus},#{punish})
+    </insert>
+
+    <update id="updateSalary">
+        UPDATE salary
+        SET
+        <if test="eId != null">
+            employee_id=${eId},
+        </if>
+        <if test="salary != null">
+            salary_salary=#{salary},
+        </if>
+        <if test="bonus!=null">
+            salary_bonus=#{bonus},
+        </if>
+        <if test="punish!=null">
+            salary_punish=#{punish}
+        </if>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByIds">
+        DELETE FROM salary
+        WHERE id IN
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+        </foreach>
+    </delete>
+</mapper>
