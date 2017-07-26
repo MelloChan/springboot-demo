@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mello.dao.QuestionDAO">
+    <resultMap id="BaseResultMap" type="com.mello.domain.Question">
+        <result column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="ip" property="ip"/>
+    </resultMap>
+    <parameterMap id="Question" type="com.mello.domain.Question"/>
+    <sql id="Base_Column_List">
+        id, content, ip
+    </sql>
+
+    <insert id="saveQuestion" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO question(content,ip)
+        VALUES
+        (#{content},#{ip})
+    </insert>
+</mapper>

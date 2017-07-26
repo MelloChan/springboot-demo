@@ -1,0 +1,193 @@
+html,body{
+    margin: 0;
+    border: 0;
+    font: 0.75rem/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#cover{
+    height: 100%;
+    width: 100%;
+    background: #09203f;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    z-index: 1000;
+}
+
+#cover img{
+    width: 50px;
+    margin: 0 auto 20px auto;
+    display: block;
+    animation:rotateset 3s linear infinite;
+}
+
+@-webkit-keyframes rotateset {
+    0% {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+    }
+}
+
+@keyframes rotateset {
+    0% {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+    }
+}
+
+#cover-title{
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.ask{
+    position: fixed;
+    right: 1rem;
+    top:1.2rem;
+    font-size: 1.2rem;
+    color: #09203f;
+    font-weight: bold;
+}
+
+.ask-form{
+    height: 0;
+    transition: height 0.5s ease;
+    -webkit-transition: height 0.5s ease;
+    -moz-transition: height 0.5s ease;
+    -o-transition: height 0.5s ease;
+    overflow: hidden;
+}
+
+.ask-form-show{
+    height: 10rem;
+    transition: height 0.5s ease;
+    -webkit-transition: height 0.5s ease;
+    -moz-transition: height 0.5s ease;
+    -o-transition: height 0.5s ease;
+    border-bottom: 1px solid #eee;
+}
+
+.ask-form textarea{
+    width: 100%;
+    height: 5rem;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    max-height: 5rem;
+    max-width: 100%;
+    outline: 0;
+    margin-top: 1rem;
+    padding: 0.5rem;
+}
+
+.ask-form-email{
+    outline: 0;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.title{
+    height: 4rem;
+    width: 100%;
+    text-align: left;
+    padding-left: 2rem;
+    line-height: 4rem;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    background-image: linear-gradient(60deg, #73c36e 0%, #fff 100%);
+    position: fixed;
+    top:0;
+}
+
+article{
+    margin-top: 4rem;
+    padding: 0 1rem;
+}
+
+.article-item{
+    padding: 1rem 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.article-item-opera{
+    display: flex;
+    margin-top: 1rem;
+}
+
+.article-item-email{
+    flex: 1;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    padding: 0 1rem;
+}
+.article-item-email:focus{
+    outline:none;
+}
+
+.article-item-ask{
+    width: 5rem;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    background: #09203f;
+    color: #fff;
+    display: inline-block;
+}
+
+.article-item-no{
+    font-size: 2rem;
+    margin-right: 1rem;
+    color: #73c36e;
+    font-weight: bold;
+}
+
+.article-item-content{
+    font-size: 1.1rem;
+    color: #333;
+    letter-spacing: 0.15rem;
+    line-height: 2rem;
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mello.dao.MessageDAO">
+    <resultMap id="BaseResultMap" type="com.mello.domain.Message">
+        <result column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="email" property="email"/>
+        <result column="ip" property="ip"/>
+        <result column="create_date" property="date"/>
+    </resultMap>
+    <parameterMap id="Message" type="com.mello.domain.Message"/>
+    <sql id="Base_Column_List">
+        content, email, ip, create_date
+    </sql>
+    <select id="findAllMsg" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM message_board
+    </select>
+
+    <insert id="saveMessage" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO message_board(content,email,ip,create_date)
+        VALUES
+        (#{content},#{email},#{ip},#{date})
+    </insert>
+</mapper>
