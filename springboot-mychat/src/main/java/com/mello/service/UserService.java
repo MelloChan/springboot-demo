@@ -16,12 +16,12 @@ public class UserService {
     public UserService(){
         users=new ConcurrentHashMap<>();
     }
-    public boolean addUser(User user){
-            boolean isExist=users.containsKey(user.getNickname());
-            if(isExist){
-                return false;
-            }
-            users.put(user.getClass(),user);
-            return true;
-    }
+//    public boolean addUser(User user){
+//            boolean isExist=users.containsKey(user.getNickname());
+//            if(isExist){
+//                return false;
+//            }
+//            users.put();
+//            return true;
+//    }
 }

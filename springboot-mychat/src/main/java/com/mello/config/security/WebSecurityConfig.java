@@ -14,8 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private AnyUserDetailService anyUserDetailService;
+//    @Autowired
+//    private AnyUserDetailService anyUserDetailService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);

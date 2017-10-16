@@ -3,6 +3,9 @@ package com.mello.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.Random;
@@ -14,8 +17,11 @@ import java.util.Random;
 @Data
 @NoArgsConstructor
 @ToString
+@Document
 public class User {
+    @Id
     private String id;
+    @Indexed(unique = true)
     private String username;
     private String password;
     private String nickname;
